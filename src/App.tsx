@@ -6,6 +6,7 @@ import {ThemeProvider} from 'styled-components';
 import {Routes} from '@routes/index.routes';
 
 import {AuthProvider} from '@hooks/auth';
+import {TasksProvider} from '@hooks/tasks';
 
 import theme from '@global/styles/theme';
 
@@ -13,9 +14,11 @@ function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <StatusBar barStyle="dark-content" backgroundColor="transparent" />
+        <TasksProvider>
+          <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
-        <Routes />
+          <Routes />
+        </TasksProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -46,3 +46,9 @@ export const TextInfo = styled.Text`
   font-size: 12px;
   color: ${({theme}) => theme.colors.danger};
 `;
+
+export const MyInputMultiLine = styled(MyInput)`
+  align-items: flex-start;
+  justify-content: flex-start;
+  
+`;
