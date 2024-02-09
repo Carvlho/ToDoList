@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useTheme} from 'styled-components';
 
-import Home from '../screens/Home';
+import ToDo from '../screens/ToDo';
 import Perfil from '../screens/Perfil';
 
 import {CircleUserRoundIcon, ListTodo} from 'lucide-react-native';
@@ -9,24 +10,30 @@ import {CircleUserRoundIcon, ListTodo} from 'lucide-react-native';
 const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
+  const theme = useTheme();
+
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#D73035',
-        tabBarInactiveTintColor: '#666666',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.gray,
+        tabBarLabelStyle: {
+          fontFamily: theme.fonts.bold,
+          fontSize: 12,
+        },
         tabBarStyle: {
           height: 80,
-          backgroundColor: '#fff',
+          backgroundColor: theme.colors.background,
           borderTopWidth: 0,
           paddingTop: 12,
           paddingBottom: 12,
         },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="ToDo"
+        component={ToDo}
         options={{
-          title: 'Home',
+          title: 'ToDo',
           tabBarIcon: ({color}) => {
             return <ListTodo color={color} />;
           },
