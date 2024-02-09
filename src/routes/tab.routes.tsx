@@ -2,8 +2,8 @@ import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'styled-components';
 
-import ToDo from '../screens/ToDo';
-import Perfil from '../screens/Perfil';
+import ToDo from '@screens/ToDo';
+import Perfil from '@screens/Perfil';
 
 import {CircleUserRoundIcon, ListTodo} from 'lucide-react-native';
 

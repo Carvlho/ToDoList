@@ -1,12 +1,12 @@
 import React from 'react';
+import {ThemeProvider} from 'styled-components';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {StatusBar} from 'react-native';
 
-import TabRoutes from './routes/tab.routes';
+import TabRoutes from '@routes/tab.routes';
 
-import theme from './global/styles/theme';
-import {ThemeProvider} from 'styled-components';
+import theme from '@global/styles/theme';
 
 function App(): React.JSX.Element {
   return (
