@@ -1,21 +1,17 @@
 import React from 'react';
-import {ThemeProvider} from 'styled-components';
-import {NavigationContainer} from '@react-navigation/native';
-
 import {StatusBar} from 'react-native';
+import {ThemeProvider} from 'styled-components';
 
-import TabRoutes from '@routes/tab.routes';
+import {Routes} from '@routes/index.routes';
 
 import theme from '@global/styles/theme';
 
 function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="dark-content" backgroundColor="transparent" />
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
-        <TabRoutes />
-      </NavigationContainer>
+      <Routes />
     </ThemeProvider>
   );
 }
