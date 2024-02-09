@@ -2,8 +2,9 @@ import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Home from '../screens/Home';
+import Perfil from '../screens/Perfil';
 
-import {ListTodo} from 'lucide-react-native';
+import {CircleUserRoundIcon, ListTodo} from 'lucide-react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +29,16 @@ export default function TabRoutes() {
           title: 'Home',
           tabBarIcon: ({color}) => {
             return <ListTodo color={color} />;
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Perfil"
+        component={Perfil}
+        options={{
+          title: 'Perfil',
+          tabBarIcon: ({color}) => {
+            return <CircleUserRoundIcon color={color} />;
           },
         }}
       />
