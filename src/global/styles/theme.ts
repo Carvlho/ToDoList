@@ -7,6 +7,7 @@ export default {
     secondary: '#008CFF',
 
     black: '#000',
+    white: '#FFFFFF',
     gray: '#777777',
 
     danger: '#E83F5B',

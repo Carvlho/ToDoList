@@ -1,17 +1,22 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
+
 import {ThemeProvider} from 'styled-components';
 
 import {Routes} from '@routes/index.routes';
+
+import {AuthProvider} from '@hooks/auth';
 
 import theme from '@global/styles/theme';
 
 function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
+      <AuthProvider>
+        <StatusBar barStyle="dark-content" backgroundColor="transparent" />
 
-      <Routes />
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

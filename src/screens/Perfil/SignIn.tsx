@@ -1,11 +1,21 @@
-import {Button, KeyboardAvoidingView, Platform, Text} from 'react-native';
+import {useState} from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 
+import {AppRoutesNavigationProps} from '@routes/index.routes';
+
+import {useAuth} from '@hooks/auth';
+
 import Container from '@components/container';
 import Input from '@components/Input/input.index';
+import Header from '@components/header';
+import Button from '@components/Button/button.index';
+
+import {TextRegister} from './signIn.styles';
 
 const signInSchema = z.object({
   email: z
@@ -25,6 +35,7 @@ const signInSchema = z.object({
 type signInUserFormData = z.infer<typeof signInSchema>;
 
 export default function SignIn() {
+  const navigation = useNavigation<AppRoutesNavigationProps>();
   const {
     control,
     handleSubmit,
@@ -33,9 +44,19 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   });
 
-  console.log(errors);
+  const {login} = useAuth();
 
-  const onSubmit = (data: any) => console.log(data);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const onSubmit = async (data: signInUserFormData) => {
+    const response: any = await login(data);
+
+    console.log(response);
+
+    if (response.success) {
+      navigation.navigate('Home');
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -44,7 +65,7 @@ export default function SignIn() {
         flex: 1,
       }}>
       <Container>
-        <Text>SignIn</Text>
+        <Header>Login</Header>
 
         <Controller
           control={control}
@@ -72,6 +93,10 @@ export default function SignIn() {
           render={({field: {onChange}}) => (
             <Input
               placeholder="Digite sua senha"
+              secureTextEntry={!passwordVisible}
+              isPassword
+              isPasswordVisible={passwordVisible}
+              setPasswordVisible={setPasswordVisible}
               errorMessage={errors.password?.message}
               onChangeText={text => {
                 onChange(text);
@@ -80,7 +105,13 @@ export default function SignIn() {
           )}
         />
 
-        <Button title="Entrar" onPress={handleSubmit(onSubmit)} />
+        <Button
+          title="Entrar"
+          onPress={handleSubmit(onSubmit)}
+          style={{marginTop: 14}}
+        />
+
+        <TextRegister>Não possui uma conta? Se registre agora!</TextRegister>
       </Container>
     </KeyboardAvoidingView>
   );
