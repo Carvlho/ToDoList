@@ -2,9 +2,10 @@
   "compilerOptions": {
     "module": "ES2022",
     "paths": {
+      "@components/*": ["./src/components/*"],
       "@global/*": ["./src/global/*"],
-      "@screens/*": ["./src/screens/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@screens/*": ["./src/screens/*"]
     }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"

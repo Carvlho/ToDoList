@@ -8,6 +8,8 @@ export default {
 
     black: '#000',
     gray: '#777777',
+
+    danger: '#E83F5B',
   },
 
   fonts: {
