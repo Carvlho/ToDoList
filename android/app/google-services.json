@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095201698677",
+    "project_id": "intergalaxy-319915",
+    "storage_bucket": "intergalaxy-319915.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095201698677:android:800a0b243ca1e261ac993c",
+        "android_client_info": {
+          "package_name": "com.todolist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw1ge5JbG-JBPjEC0ejuF4IwA1GrxmjgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
