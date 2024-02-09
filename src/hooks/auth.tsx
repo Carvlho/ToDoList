@@ -10,6 +10,7 @@ interface AuthContextData {
   user: UserProps;
   setUser: (user: UserProps) => void;
   login: (data: UserProps) => void;
+  logout: () => void;
 }
 
 interface AuthProviderProps {
@@ -38,12 +39,30 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      await auth().signOut();
+
+      setUser({} as UserProps);
+
+      return {
+        user: null,
+        success: true,
+      };
+    } catch (error) {
+      console.error(error);
+    }
+
+    console.log(user);
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
         login,
+        logout,
       }}>
       {children}
     </AuthContext.Provider>

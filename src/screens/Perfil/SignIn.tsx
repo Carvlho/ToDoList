@@ -1,6 +1,6 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -39,6 +39,7 @@ export default function SignIn() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm<signInUserFormData>({
     resolver: zodResolver(signInSchema),
@@ -51,12 +52,18 @@ export default function SignIn() {
   const onSubmit = async (data: signInUserFormData) => {
     const response: any = await login(data);
 
-    console.log(response);
-
     if (response.success) {
       navigation.navigate('Home');
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset();
+      };
+    }, [reset]),
+  );
 
   return (
     <KeyboardAvoidingView

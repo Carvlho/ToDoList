@@ -25,7 +25,7 @@ export type AppRoutesNavigationProps = NativeStackNavigationProp<Routes>;
 const Stack = createNativeStackNavigator<Routes>();
 
 export const Routes: React.FC = () => {
-  const {setUser} = useAuth();
+  const {user, setUser} = useAuth();
   const theme = useTheme();
 
   const [initializing, setInitializing] = useState(true);
@@ -45,7 +45,7 @@ export const Routes: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Navigator initialRouteName={user !== null ? 'Home' : 'SignIn'}>
         <Stack.Screen
           name="Home"
           component={TabRoutes}
