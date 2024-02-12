@@ -2,13 +2,14 @@ import {useState} from 'react';
 
 import {
   ActionButton,
+  Completed,
   ContainerActions,
   ContainerTaskItem,
   TaskItemDescription,
   TaskItemTitle,
 } from './styles';
 
-import {CheckCircle2, Trash2} from 'lucide-react-native';
+import {CheckCheck, CheckCircle2, Trash2} from 'lucide-react-native';
 
 interface Task {
   id: number;
@@ -30,7 +31,7 @@ export default function TaskItem({
 }: TaskItemProps) {
   return (
     <ContainerTaskItem>
-      <TaskItemTitle>{task.title}</TaskItemTitle>
+      <TaskItemTitle completed={task.completed}>{task.title}</TaskItemTitle>
       <TaskItemDescription>{task.description}</TaskItemDescription>
 
       <ContainerActions>
@@ -44,6 +45,12 @@ export default function TaskItem({
           </ActionButton>
         )}
       </ContainerActions>
+
+      {task.completed && (
+        <Completed>
+          <CheckCheck color={'green'} />
+        </Completed>
+      )}
     </ContainerTaskItem>
   );
 }
