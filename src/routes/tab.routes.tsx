@@ -3,12 +3,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'styled-components';
 
 import ToDo from '@screens/ToDo';
-import AddTask from '@screens/AddTask';
 import Perfil from '@screens/Perfil';
 
-import ButtonAddTask from '@components/buttonAddTask';
-
-import {CircleUserRoundIcon, ListTodo, Plus} from 'lucide-react-native';
+import {CircleUserRoundIcon, ListTodo} from 'lucide-react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,29 +40,7 @@ export default function TabRoutes() {
           },
         }}
       />
-      <Tab.Screen
-        name="AddTask"
-        component={AddTask}
-        options={{
-          title: 'AddTask',
-          tabBarLabelStyle: {
-            color: 'transparent',
-          },
-          tabBarIconStyle: {
-            position: 'absolute',
-            top: 0,
-            bottom: 32,
-          },
-          headerShown: false,
-          tabBarIcon: () => {
-            return (
-              <ButtonAddTask>
-                <Plus size={32} color={theme.colors.white} />
-              </ButtonAddTask>
-            );
-          },
-        }}
-      />
+
       <Tab.Screen
         name="Perfil"
         component={Perfil}

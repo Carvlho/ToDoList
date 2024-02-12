@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
@@ -6,6 +6,8 @@ import {z} from 'zod';
 import {useTheme} from 'styled-components';
 
 import {TaskProps, useTasks} from '@hooks/tasks';
+
+import {AppRoutesNavigationProps} from '@routes/index.routes';
 
 import Container from '@components/container';
 import Header from '@components/header';
@@ -41,31 +43,38 @@ const taskSchema = z.object({
 type taskFormData = z.infer<typeof taskSchema>;
 
 export default function AddTask() {
-  const theme = useTheme();
+  const navigation = useNavigation<AppRoutesNavigationProps>();
 
-  const [idCounter, setIdCounter] = useState(1);
+  const theme = useTheme();
+  const {tasks, setTasks} = useTasks();
 
   const {
     control,
     handleSubmit,
-    reset,
     formState: {errors},
   } = useForm<taskFormData>({
     resolver: zodResolver(taskSchema),
   });
 
-  const {tasks, setTasks} = useTasks();
+  const getNextId = (): number => {
+    const lastTask = tasks.length > 0 ? tasks[tasks.length - 1] : null;
+    const nextId = lastTask ? lastTask.id + 1 : 1;
+    return nextId;
+  };
 
   const handleAddTask = (data: taskFormData) => {
     const newTask: TaskProps = {
-      id: idCounter,
+      id: getNextId(),
       title: data.title,
       description: data.description,
       completed: false,
     };
 
     setTasks([...tasks, newTask]);
-    setIdCounter(prevId => prevId + 1);
+
+    navigation.navigate('Home', {
+      screen: 'ToDo',
+    });
   };
 
   return (
@@ -77,13 +86,14 @@ export default function AddTask() {
         rules={{
           required: true,
         }}
-        render={({field: {onChange}}) => (
+        render={({field: {onChange, onBlur}}) => (
           <Input
             placeholder="Digite o título da task"
             errorMessage={errors.title?.message}
             onChangeText={text => {
               onChange(text);
             }}
+            onBlur={onBlur}
           />
         )}
       />

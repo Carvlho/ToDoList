@@ -14,10 +14,12 @@ import {useAuth} from '@hooks/auth';
 import TabRoutes from './tab.routes';
 
 import SignIn from '@screens/Perfil/SignIn';
+import AddTask from '@screens/AddTask';
 
 type Routes = {
-  Home: undefined;
+  Home: undefined | any;
   SignIn: undefined;
+  AddTask: undefined;
 };
 
 export type AppRoutesNavigationProps = NativeStackNavigationProp<Routes>;
@@ -49,6 +51,12 @@ export const Routes: React.FC = () => {
         <Stack.Screen
           name="Home"
           component={TabRoutes}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="AddTask"
+          component={AddTask}
           options={{headerShown: false}}
         />
 
