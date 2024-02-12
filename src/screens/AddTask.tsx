@@ -1,12 +1,16 @@
+import {useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 
 import {useTheme} from 'styled-components';
 
+import {TaskProps, useTasks} from '@hooks/tasks';
+
 import Container from '@components/container';
 import Header from '@components/header';
 import Input from '@components/Input/input.index';
+import Button from '@components/Button/button.index';
 
 import {
   ContainerInfo,
@@ -16,8 +20,6 @@ import {
 } from '@components/Input/input.styles';
 
 import {AlertCircle} from 'lucide-react-native';
-import Button from '@components/Button/button.index';
-import {useTasks} from '@hooks/tasks';
 
 const taskSchema = z.object({
   title: z
@@ -41,6 +43,8 @@ type taskFormData = z.infer<typeof taskSchema>;
 export default function AddTask() {
   const theme = useTheme();
 
+  const [idCounter, setIdCounter] = useState(1);
+
   const {
     control,
     handleSubmit,
@@ -53,7 +57,15 @@ export default function AddTask() {
   const {tasks, setTasks} = useTasks();
 
   const handleAddTask = (data: taskFormData) => {
-    setTasks([...tasks, data]);
+    const newTask: TaskProps = {
+      id: idCounter,
+      title: data.title,
+      description: data.description,
+      completed: false,
+    };
+
+    setTasks([...tasks, newTask]);
+    setIdCounter(prevId => prevId + 1);
   };
 
   return (

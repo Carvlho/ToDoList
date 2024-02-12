@@ -1,21 +1,37 @@
-import {Text, View} from 'react-native';
+import {useTasks, TaskProps} from '@hooks/tasks';
 
-import {useTasks} from '@hooks/tasks';
 import Container from '@components/container';
 import Header from '@components/header';
+import TaskItem from '@components/TaskItem';
 
 export default function ToDo() {
-  const {tasks} = useTasks();
+  const {tasks, setTasks} = useTasks();
+
+  const onDelete = (taskId: number) => {
+    setTasks((prevTasks: TaskProps[]) =>
+      prevTasks.filter(task => task.id !== taskId),
+    );
+  };
+
+  const handleToggleComplete = (taskId: number) => {
+    setTasks((prevTasks: TaskProps[]) =>
+      prevTasks.map(task =>
+        task.id === taskId ? {...task, completed: !task.completed} : task,
+      ),
+    );
+  };
 
   return (
-    <Container>
+    <Container style={{justifyContent: 'flex-start'}}>
       <Header>ToDo</Header>
 
       {tasks.map((task, index) => (
-        <>
-          <Text key={index}>{task.title}</Text>
-          <Text>{task.description}</Text>
-        </>
+        <TaskItem
+          key={index}
+          task={task}
+          onDelete={onDelete}
+          onToggleComplete={handleToggleComplete}
+        />
       ))}
     </Container>
   );

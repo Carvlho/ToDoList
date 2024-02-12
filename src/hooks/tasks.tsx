@@ -1,8 +1,10 @@
 import {createContext, ReactNode, useContext, useState} from 'react';
 
 export type TaskProps = {
+  id: number;
   title: string;
   description: string;
+  completed: boolean;
 };
 
 interface TasksContextData {

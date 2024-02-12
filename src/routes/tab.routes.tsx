@@ -31,6 +31,7 @@ export default function TabRoutes() {
           paddingTop: 12,
           paddingBottom: 12,
         },
+        headerShown: false,
       }}>
       <Tab.Screen
         name="ToDo"
@@ -55,6 +56,7 @@ export default function TabRoutes() {
             top: 0,
             bottom: 32,
           },
+          headerShown: false,
           tabBarIcon: () => {
             return (
               <ButtonAddTask>
