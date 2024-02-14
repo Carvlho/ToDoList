@@ -1,9 +1,12 @@
-import {Button, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useAuth} from '@hooks/auth';
 
 import {AppRoutesNavigationProps} from '@routes/index.routes';
+
+import Container from '@components/container';
+import Header from '@components/header';
+import Button from '@components/Button/button.index';
 
 export default function Perfil() {
   const navigation = useNavigation<AppRoutesNavigationProps>();
@@ -19,10 +22,10 @@ export default function Perfil() {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Perfil</Text>
+    <Container>
+      <Header>Perfil</Header>
 
       <Button title="Logout" onPress={handleLogout} />
-    </View>
+    </Container>
   );
 }

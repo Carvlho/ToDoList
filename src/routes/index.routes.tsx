@@ -4,7 +4,7 @@ import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 import {useTheme} from 'styled-components';
@@ -15,10 +15,12 @@ import TabRoutes from './tab.routes';
 
 import SignIn from '@screens/Perfil/SignIn';
 import AddTask from '@screens/AddTask';
+import SignUp from '@screens/Perfil/SignUp';
 
 type Routes = {
   Home: undefined | any;
   SignIn: undefined;
+  SignUp: undefined;
   AddTask: undefined;
 };
 
@@ -39,7 +41,7 @@ export const Routes: React.FC = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   if (initializing)
@@ -63,6 +65,14 @@ export const Routes: React.FC = () => {
         <Stack.Screen
           name="SignIn"
           component={SignIn}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
           options={{
             headerShown: false,
           }}

@@ -15,7 +15,7 @@ import Input from '@components/Input/input.index';
 import Header from '@components/header';
 import Button from '@components/Button/button.index';
 
-import {TextRegister} from './signIn.styles';
+import {TextBack} from './signUp.styles';
 
 const signInSchema = z.object({
   email: z
@@ -34,7 +34,7 @@ const signInSchema = z.object({
 
 type signInUserFormData = z.infer<typeof signInSchema>;
 
-export default function SignIn() {
+export default function SignUp() {
   const navigation = useNavigation<AppRoutesNavigationProps>();
   const {
     control,
@@ -45,12 +45,12 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   });
 
-  const {login} = useAuth();
+  const {signUp} = useAuth();
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const onSubmit = async (data: signInUserFormData) => {
-    const response: any = await login(data);
+    const response: any = await signUp(data);
 
     if (response.success) {
       navigation.navigate('Home');
@@ -72,7 +72,7 @@ export default function SignIn() {
         flex: 1,
       }}>
       <Container>
-        <Header>Login</Header>
+        <Header>Cadastre-se</Header>
 
         <Controller
           control={control}
@@ -113,13 +113,13 @@ export default function SignIn() {
         />
 
         <Button
-          title="Entrar"
+          title="Cadastrar"
           onPress={handleSubmit(onSubmit)}
           style={{marginTop: 14}}
         />
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <TextRegister>Não possui uma conta? Se registre agora!</TextRegister>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TextBack>Voltar</TextBack>
         </TouchableOpacity>
       </Container>
     </KeyboardAvoidingView>

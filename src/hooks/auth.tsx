@@ -11,6 +11,7 @@ interface AuthContextData {
   setUser: (user: UserProps) => void;
   login: (data: UserProps) => void;
   logout: () => void;
+  signUp: (data: UserProps) => void;
 }
 
 interface AuthProviderProps {
@@ -25,6 +26,23 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
   const login = async (data: UserProps) => {
     try {
       const userData: any = await auth().signInWithEmailAndPassword(
+        data.email,
+        data.password,
+      );
+
+      setUser(userData.user);
+
+      return {user: userData.user, success: true};
+    } catch (error: any) {
+      console.error(error);
+
+      return false;
+    }
+  };
+
+  const signUp = async (data: UserProps) => {
+    try {
+      const userData: any = await auth().createUserWithEmailAndPassword(
         data.email,
         data.password,
       );
@@ -63,6 +81,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         setUser,
         login,
         logout,
+        signUp,
       }}>
       {children}
     </AuthContext.Provider>
